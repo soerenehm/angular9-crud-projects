@@ -1,0 +1,38 @@
+<div class="container">
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>Aufgabenstellung</th>
+      <th>Tätigkeiten</th>
+      <th>Kunde</th>
+      <th>Laufzeit, Zeitraum</th>
+      <th>Technologien</th>
+    </tr>
+    </thead>
+    <tbody *ngFor="let project of projects; let i = index">
+    <tr>
+      <td>{{ project.task }}</td>
+      <td>{{ project.operations }}</td>
+      <td>{{ project.customer }}</td>
+      <td>{{ project.duration }}</td>
+      <td>{{ project.technics }}</td>
+      <td>
+        <button class="btn btn-info" type="button" (click)="onEdit(i)">Edit</button>
+      </td>
+      <td>
+        <button class="btn btn-danger" type="button" (click)="onDelete(i)">Delete</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <div class="text-right">
+    <button class="btn btn-primary" type="button" (click)="onNew()">New</button>
+  </div>
+  <hr>
+</div>
+<app-project-edit [(editMode)]="editMode" [selectedIndex]="selectedIndex"></app-project-edit>
+
+
+
+
+
