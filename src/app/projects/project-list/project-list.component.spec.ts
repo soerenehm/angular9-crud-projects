@@ -1,25 +1,25 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {FormsModule} from '@angular/forms';
+import {HttpClientModule} from '@angular/common/http';
 
-import { ProjectListComponent } from './project-list.component';
 import {ProjectEditComponent} from '../project-edit/project-edit.component';
 import {ProjectService} from '../../shared/project.service';
 
-describe('ProjectListComponent', () => {
-  let component: ProjectListComponent;
-  let fixture: ComponentFixture<ProjectListComponent>;
+describe('ProjectEditComponent', () => {
+  let component: ProjectEditComponent;
+  let fixture: ComponentFixture<ProjectEditComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ProjectListComponent, ProjectEditComponent ],
-      imports: [ FormsModule ],
-      providers: [ ProjectService ]
+      declarations: [ProjectEditComponent],
+      imports: [FormsModule, HttpClientModule],
+      providers: [ProjectService]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ProjectListComponent);
+    fixture = TestBed.createComponent(ProjectEditComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

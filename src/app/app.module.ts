@@ -1,14 +1,14 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 
-import { AppComponent } from './app.component';
+import {AppComponent} from './app.component';
 import {AppRoutingModule} from './app-routing.module';
-import { HeaderComponent } from './core/header/header.component';
-import { HomeComponent } from './core/home/home.component';
-import { ProjectListComponent } from './projects/project-list/project-list.component';
-import { ProjectEditComponent } from './projects/project-edit/project-edit.component';
-import {ProjectService} from './shared/project.service';
+import {HeaderComponent} from './core/header/header.component';
+import {HomeComponent} from './core/home/home.component';
+import {ProjectListComponent} from './projects/project-list/project-list.component';
+import {ProjectEditComponent} from './projects/project-edit/project-edit.component';
+import {HttpClientModule} from '@angular/common/http';
 
 
 @NgModule({
@@ -22,9 +22,11 @@ import {ProjectService} from './shared/project.service';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
-  providers: [ProjectService],
+  providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

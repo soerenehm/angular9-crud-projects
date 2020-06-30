@@ -29,6 +29,10 @@
     <button class="btn btn-primary" type="button" (click)="onNew()">New</button>
   </div>
   <hr>
+  <div *ngIf="errorMessage" class="alert alert-danger">
+    <p>{{errorMessage}}</p>
+    <button class="btn btn-danger" type="button" (click)="onClearErrorMessage()">Clear Error</button>
+  </div>
 </div>
 <app-project-edit [(editMode)]="editMode" [selectedIndex]="selectedIndex"></app-project-edit>
 

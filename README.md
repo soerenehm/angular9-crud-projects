@@ -1,27 +1,22 @@
 # CRUD Application for Project Administration.
 
-This project was created with Angular 9.
+Angular 9 Project to create, read, update and delete IT projects.
 
-## Preconditions
+## 1. Project Installation
 
 Download and install [Node.js](https://nodejs.org/en/download/) including `npm` as package manager.
 
-## Installation
+Run `npm install` inside project folder to install all dependencies.
 
-Run `npm install` inside this project folder to install all dependencies.
+## 2. Project Start 
 
-## Development server
+Executing script `./start.sh` starts following: 
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+1. JSON Server docker image, REST API mocking based on plain JSON (https://github.com/clue/docker-json-server). 
+Changes beside of given projects written in projects.json are only temporarily.  
 
-## Build
+2. Starts Angular Project
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+## 3. Project Stop
 
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+Type `ctrl-c` removes automatically docker container and stops angular project serving.

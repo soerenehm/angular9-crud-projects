@@ -5,19 +5,22 @@ import {ProjectService} from '../../shared/project.service';
 import {EditMode} from '../../shared/editmode.model';
 import {Project} from '../../shared/project.model';
 
+import {uuid} from 'uuidv4';
+
 @Component({
   selector: 'app-project-edit',
   templateUrl: './project-edit.component.html',
   styleUrls: ['./project-edit.component.css']
 })
 export class ProjectEditComponent implements OnInit, OnChanges {
-  @ViewChild('form', { static: true }) projectForm: NgForm;
+  @ViewChild('form', {static: true}) projectForm: NgForm;
   @Input() selectedIndex: number;
   @Input() editMode;
   @Output() editModeChange = new EventEmitter<string>();
   customers: string[];
 
-  constructor(private projectService: ProjectService) {}
+  constructor(private projectService: ProjectService) {
+  }
 
   ngOnInit() {
     this.customers = this.projectService.getCustomers();
@@ -27,6 +30,7 @@ export class ProjectEditComponent implements OnInit, OnChanges {
     if (this.editMode === EditMode.Update) {
       const selectedProject = this.projectService.getProject(this.selectedIndex);
       this.projectForm.setValue({
+        id: selectedProject.id,
         task: selectedProject.task,
         operations: selectedProject.operations,
         customer: selectedProject.customer,
@@ -34,7 +38,7 @@ export class ProjectEditComponent implements OnInit, OnChanges {
         technics: selectedProject.technics
       });
     } else if (this.editMode === EditMode.Add) {
-      this.initForm(this.projectForm, {task: '', operations: '', customer: '', duration: '', technics: ''});
+      this.initForm(this.projectForm, {id: uuid(), task: '', operations: '', customer: '', duration: '', technics: ''});
     }
   }
 
@@ -55,6 +59,7 @@ export class ProjectEditComponent implements OnInit, OnChanges {
 
   initForm(form: NgForm, project: Project): void {
     form.setValue({
+      id: project.id,
       task: project.task,
       operations: project.operations,
       customer: project.customer,

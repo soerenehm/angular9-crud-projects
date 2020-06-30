@@ -5,8 +5,8 @@ import {HomeComponent} from './core/home/home.component';
 import {ProjectListComponent} from './projects/project-list/project-list.component';
 
 const appRoutes: Routes = [
-  { path: '', component: HomeComponent },
-  { path: 'project-list', component: ProjectListComponent },
+  {path: '', component: HomeComponent},
+  {path: 'project-list', component: ProjectListComponent},
 ];
 
 @NgModule({

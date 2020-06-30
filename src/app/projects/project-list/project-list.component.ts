@@ -13,14 +13,18 @@ import {EditMode} from '../../shared/editmode.model';
 export class ProjectListComponent implements OnInit, OnDestroy {
   projects: Project[];
   editMode: EditMode = EditMode.Undefined;
-  subscription: Subscription;
+  projectsSubscription: Subscription;
+  errorSubscription: Subscription;
   selectedIndex: number;
+  errorMessage: String = null;
 
-  constructor(private projectService: ProjectService) { }
+  constructor(private projectService: ProjectService) {
+  }
 
   ngOnInit() {
     this.projects = this.projectService.getProjects();
-    this.subscription = this.projectService.projectsChanged.subscribe(projects => this.projects = projects );
+    this.projectsSubscription = this.projectService.projectsChanged.subscribe((projects: Project[]) => this.projects = projects);
+    this.errorSubscription = this.projectService.errorOccurred.subscribe((err: any) => this.errorMessage = err);
   }
 
   onEdit(index: number) {
@@ -37,7 +41,12 @@ export class ProjectListComponent implements OnInit, OnDestroy {
     this.editMode = EditMode.Add;
   }
 
+  onClearErrorMessage() {
+    this.errorMessage = null;
+  }
+
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    this.projectsSubscription.unsubscribe();
+    this.errorSubscription.unsubscribe();
   }
 }

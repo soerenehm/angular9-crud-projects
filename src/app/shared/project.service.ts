@@ -1,60 +1,92 @@
-import {Project} from './project.model';
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import {Subject} from 'rxjs';
-import { Injectable } from '@angular/core';
+import {uuid} from 'uuidv4';
 
-@Injectable()
+import {Project} from './project.model';
+
+
+@Injectable({
+  providedIn: 'root'
+})
 export class ProjectService {
 
-  public customers = ['Telekommunikation', 'Online-Versandhandel', 'Versicherung'];
+  private customers = ['Online-Versandhandel', 'Partnervermittlung', 'Telekommunikation'];
+  private projects: Project[] = [];
 
   projectsChanged = new Subject<Project[]>();
+  errorOccurred = new Subject<any>();
 
-  projects: Project[] = [
-    {
-      task: 'Erweiterung und Integration einer auf REST und SOAP basierenden Spring Architektur' +
-        ' für die Verarbeitung von JSON Daten für die App Entwicklung. ',
-      operations: 'REST und SOAP Schnittstellenerweiterung und Integration,\n' +
-        'Persistenz über Spring Data und JPA,\n' +
-        'Testerstellung über MockMVC und WireMock',
-      customer: 'Telekommunikation',
-      duration: '7 Monate, 02/2018 - 08/2018',
-      technics: 'Spring Boot, Spring Data, Java 8, REST, SOAP, JSON, MockMVC, WireMock'
+  httpOptions = {
+    headers: new HttpHeaders({'Content-Type': 'application/json'})
+  };
 
-    },
-    {
-      task: '(Weiter-)Entwicklung des firmeneigenen Basis-Frameworks, basierend auf Spring und Vaadin. ',
-      operations: 'Funktionale Weiterentwicklung des Basis-Frameworks,\n' +
-      'Fehlerkorrektur bestehender Funktionalitäten',
-      customer: 'Online-Versandhandel',
-      duration: '2 Monate, 08/2017 - 09/2017',
-      technics: 'Spring Framework, Vaadin, JavaScript, Tomcat, JRebel, Maven, Git'
-    }
-  ];
+  constructor(private httpClient: HttpClient) {
+  }
 
-  getCustomers() {
+  getCustomers(): string[] {
     return this.customers.slice();
   }
 
-  getProjects() {
+  getProjects(): Project[] {
+    const url = 'http://localhost/projects';
+
+    this.httpClient.get<Project[]>(url, this.httpOptions).subscribe(
+      (responseData: Project[]) => {
+        this.projects = responseData;
+        this.projectsChanged.next(this.projects.slice());
+      },
+      (err: any) => {
+        this.handleError(err);
+      });
     return this.projects.slice();
   }
 
-  getProject(index: number) {
+  getProject(index: number): Project {
     return this.projects[index];
   }
 
-  deleteProject(index: number) {
-    this.projects.splice(index, 1);
-    this.projectsChanged.next(this.projects.slice());
+  deleteProject(index: number): void {
+    const url = 'http://localhost/projects/' + this.projects[index]['id'];
+
+    this.httpClient.delete<{}>(url, this.httpOptions).subscribe(
+      () => {
+        this.projects.splice(index, 1);
+        this.projectsChanged.next(this.projects.slice());
+      },
+      err => {
+        this.handleError(err);
+      });
   }
 
-  updateProject(index: number, project: Project) {
-    this.projects[index] = project;
-    this.projectsChanged.next(this.projects.slice());
+  updateProject(index: number, project: Project): void {
+    const url = 'http://localhost/projects/' + project.id;
+
+    this.httpClient.put<Project>(url, project, this.httpOptions).subscribe(
+      (responseData: Project) => {
+        this.projects[index] = responseData;
+        this.projectsChanged.next(this.projects.slice());
+      },
+      err => {
+        this.handleError(err);
+      });
   }
 
-  addProject(project: Project) {
-    this.projects.push(project);
-    this.projectsChanged.next(this.projects.slice());
+  addProject(project: Project): void {
+    project.id = uuid();
+    const url = 'http://localhost/projects';
+
+    this.httpClient.post<Project>(url, project, this.httpOptions).subscribe(
+      (responseData: Project) => {
+        this.projects.push(responseData);
+        this.projectsChanged.next(this.projects.slice());
+      },
+      err => {
+        this.handleError(err);
+      });
+  }
+
+  handleError(err: any): void {
+    this.errorOccurred.next(err.message);
   }
 }
