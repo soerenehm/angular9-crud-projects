@@ -2,6 +2,8 @@
 
 Angular 9 Project to create, read, update and delete IT projects.
 
+Changes beside of given projects in projects.json are only temporarily.
+
 ## 1. Project Installation
 
 Download and install [Node.js](https://nodejs.org/en/download/) including `npm` as package manager.
@@ -12,10 +14,9 @@ Run `npm install` inside project folder to install all dependencies.
 
 Executing script `./start.sh` starts following: 
 
-1. JSON Server docker image, REST API mocking based on plain JSON (https://github.com/clue/docker-json-server). 
-Changes beside of given projects written in projects.json are only temporarily.  
+1. JSON Server docker image, REST API mocking based on plain JSON (https://github.com/clue/docker-json-server).
 
-2. Starts Angular Project
+2. Angular Project
 
 ## 3. Project Stop
 
