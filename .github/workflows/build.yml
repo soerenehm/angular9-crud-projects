@@ -9,12 +9,12 @@ jobs:
     steps:
     - uses: actions/checkout@master
 
-    - name: unit test
+    - name: unit tests
       uses: colbyhill21/angular-full-ci/@v1.0
       with:
         testcommand: run test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
 
-    - name: e2e test
-      uses: colbyhill21/angular-full-ci/@v1.0
-      with:
-        testcommand: run e2e -- --protractor-config=e2e/protractor.conf.js
+#    - name: e2e tests
+#      uses: colbyhill21/angular-full-ci/@v1.0
+#      with:
+#        testcommand: run e2e -- --protractor-config=e2e/protractor.conf.js
