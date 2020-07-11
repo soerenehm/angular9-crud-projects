@@ -1,6 +1,5 @@
-<!--
-[![Build Status](https://travis-ci.org/soerenehm/angular9-crud-projects.svg?branch=master)](https://travis-ci.org/soerenehm/angular9-crud-projects.svg?branch=master)
--->
+[<img src="https://github.com/soerenehm/angular9-crud-projects/workflows/build/badge.svg" alt="build_status" width="200"/>](https://github.com/soerenehm/angular9-crud-projects/actions)
+
 # CRUD Application for Project Administration.
 
 Angular 9 Project to create, read, update and delete IT projects.
