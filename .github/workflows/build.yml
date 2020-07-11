@@ -17,4 +17,4 @@ jobs:
     - name: e2e test
       uses: colbyhill21/angular-full-ci/@v1.0
       with:
-        testcommand: npm run e2e -- --protractor-config=e2e/protractor-ci.conf.js
+        testcommand: run e2e -- --protractor-config=e2e/protractor.conf.js
