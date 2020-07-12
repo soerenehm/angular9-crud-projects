@@ -19,7 +19,7 @@ start() {
   local args=$@
   docker run -d -p 80:80 -v $(pwd)/projects.json:/data/db.json --name "${CONTAINER_NAME}" "${IMAGE_NAME}" $args
 
-  ng serve
+  ng serve --open
 }
 
 cleanup() {
