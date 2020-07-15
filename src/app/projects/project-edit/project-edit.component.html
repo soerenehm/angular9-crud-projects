@@ -1,16 +1,13 @@
 <div class="container" [hidden]="!isEditModeDefined()">
   <div class="mb-3">
-    <form (ngSubmit)="onSubmit(form)" #form="ngForm">
+    <form [formGroup]="projectForm" (ngSubmit)="onSubmit()">
       <div class="form-group row" [style.display]="'none'">
         <div class="col">
           <input
-            name="id"
-            id="id"
             type="text"
-            class="form-control"
-            ngModel
-            required
-          >
+            id="id"
+            formControlName="id"
+            class="form-control">
         </div>
       </div>
       <div class="form-group row">
@@ -18,13 +15,11 @@
         <div class="col">
         <textarea
           rows="3"
-          name="task"
-          id="task"
           type="text"
-          class="form-control"
-          ngModel
-          required
-        ></textarea>
+          id="task"
+          formControlName="task"
+          class="form-control">
+        </textarea>
         </div>
       </div>
       <div class="form-group row">
@@ -32,19 +27,20 @@
         <div class="col">
         <textarea
           rows="3"
-          name="operations"
-          id="operations"
           type="text"
-          class="form-control"
-          ngModel
-          required
-        ></textarea>
+          id="operations"
+          formControlName="operations"
+          class="form-control">
+        </textarea>
         </div>
       </div>
       <div class="form-group row">
         <label for="customer" class="col-2 col-form-label">Kunde</label>
         <div class="col-3">
-          <select name="customer" id="customer" class="form-control" ngModel required>
+          <select
+            id="customer"
+            formControlName="customer"
+            class="form-control">
             <option *ngFor="let customer of customers" [value]="customer">{{ customer }}</option>
           </select>
         </div>
@@ -53,30 +49,24 @@
         <label for="duration" class="col-2 col-form-label">Laufzeit, Zeitraum</label>
         <div class="col-3">
           <input
-            name="duration"
-            id="duration"
             type="text"
-            class="form-control"
-            ngModel
-            required
-          >
+            id="duration"
+            formControlName="duration"
+            class="form-control">
         </div>
       </div>
       <div class="form-group row">
         <label for="technis" class="col-2 col-form-label">Technologien</label>
         <div class="col">
           <input
-            name="technics"
-            id="technis"
             type="text"
-            class="form-control"
-            ngModel
-            required
-          >
+            id="technis"
+            formControlName="technics"
+            class="form-control">
         </div>
       </div>
       <div class="row">
-        <button class="btn btn-success m-1" [disabled]="!form.valid" type="submit">{{ editMode }}</button>
+        <button class="btn btn-success m-1" [disabled]="!projectForm.valid" type="submit">{{ editMode }}</button>
         <button class="btn btn-secondary m-1" type="button" (click)="onCancel()">Cancel</button>
       </div>
     </form>

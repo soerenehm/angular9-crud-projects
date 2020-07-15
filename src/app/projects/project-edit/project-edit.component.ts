@@ -1,5 +1,5 @@
-import {Component, EventEmitter, Input, OnChanges, OnInit, Output, ViewChild} from '@angular/core';
-import {NgForm} from '@angular/forms';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 
 import {ProjectService} from '../../shared/project.service';
 import {EditMode} from '../../shared/editmode.model';
@@ -13,11 +13,29 @@ import {uuid} from 'uuidv4';
   styleUrls: ['./project-edit.component.css']
 })
 export class ProjectEditComponent implements OnInit, OnChanges {
-  @ViewChild('form', {static: true}) projectForm: NgForm;
+  projectForm: FormGroup = new FormGroup({
+    'id': new FormControl(null, Validators.required),
+    'task': new FormControl(null, Validators.required),
+    'operations': new FormControl(null, Validators.required),
+    'customer': new FormControl(null, Validators.required),
+    'duration': new FormControl(null, Validators.required),
+    'technics': new FormControl(null, Validators.required),
+  });
   @Input() selectedIndex: number;
   @Input() editMode;
   @Output() editModeChange = new EventEmitter<string>();
   customers: string[];
+
+  static initForm(projectForm: FormGroup, project: Project): void {
+    projectForm.setValue({
+      'id': project.id,
+      'task': project.task,
+      'operations': project.operations,
+      'customer': project.customer,
+      'duration': project.duration,
+      'technics': project.technics
+    });
+  }
 
   constructor(private projectService: ProjectService) {
   }
@@ -30,15 +48,18 @@ export class ProjectEditComponent implements OnInit, OnChanges {
     if (this.editMode === EditMode.Update) {
       const selectedProject = this.projectService.getProject(this.selectedIndex);
       this.projectForm.setValue({
-        id: selectedProject.id,
-        task: selectedProject.task,
-        operations: selectedProject.operations,
-        customer: selectedProject.customer,
-        duration: selectedProject.duration,
-        technics: selectedProject.technics
+        'id': selectedProject.id,
+        'task': selectedProject.task,
+        'operations': selectedProject.operations,
+        'customer': selectedProject.customer,
+        'duration': selectedProject.duration,
+        'technics': selectedProject.technics
       });
-    } else if (this.editMode === EditMode.Add) {
-      this.initForm(this.projectForm, {id: uuid(), task: '', operations: '', customer: '', duration: '', technics: ''});
+    } else {
+      if (this.editMode === EditMode.Add) {
+        ProjectEditComponent.initForm(
+          this.projectForm, {id: uuid(), task: '', operations: '', customer: '', duration: '', technics: ''});
+      }
     }
   }
 
@@ -47,25 +68,14 @@ export class ProjectEditComponent implements OnInit, OnChanges {
     this.editModeChange.emit(EditMode.Undefined);
   }
 
-  onSubmit(form: NgForm) {
-    const newProject = form.value;
+  onSubmit() {
+    const newProject = this.projectForm.value;
     if (this.editMode === EditMode.Update) {
       this.projectService.updateProject(this.selectedIndex, newProject);
     } else {
       this.projectService.addProject(newProject);
     }
     this.onCancel();
-  }
-
-  initForm(form: NgForm, project: Project): void {
-    form.setValue({
-      id: project.id,
-      task: project.task,
-      operations: project.operations,
-      customer: project.customer,
-      duration: project.duration,
-      technics: project.technics
-    });
   }
 
   isEditModeDefined() {

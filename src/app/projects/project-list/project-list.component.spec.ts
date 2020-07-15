@@ -1,5 +1,5 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
-import {FormsModule} from '@angular/forms';
+import {ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 
 import {ProjectEditComponent} from '../project-edit/project-edit.component';
@@ -12,10 +12,9 @@ describe('ProjectEditComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ProjectEditComponent],
-      imports: [FormsModule, HttpClientModule],
+      imports: [ReactiveFormsModule, HttpClientModule],
       providers: [ProjectService]
-    })
-      .compileComponents();
+    });
   }));
 
   beforeEach(() => {
