@@ -20,7 +20,7 @@ build() {
     echo "Build docker container"
     docker build -t "$IMAGE_NAME" .
     echo "Create docker container"
-    docker create -p 80:80 -v $(pwd)/projects.json:/data/db.json --name "${CONTAINER_NAME}" "${IMAGE_NAME}"
+    docker create -p 80:80 -v $(pwd)/db.json:/data/db.json --name "${CONTAINER_NAME}" "${IMAGE_NAME}"
   else
     echo "Docker container already created"
   fi

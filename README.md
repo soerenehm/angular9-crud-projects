@@ -4,7 +4,7 @@
 
 Angular 9 Project to create, read, update and delete IT projects.
 
-Changes beside of given projects in projects.json are only temporarily.
+Changes beside of given projects in db.json are only temporarily.
 
 ## 1. Project Installation
 
@@ -16,7 +16,7 @@ Run `npm install` inside project folder to install all dependencies.
 
 Executing script `./start.sh` starts following: 
 
-1. JSON Server docker image, REST API mocking based on plain JSON (https://github.com/clue/docker-json-server).
+1. JSON Server docker image, REST API mocking based on plain JSON (https://github.com/typicode/json-server).
 
 2. Angular Project
 

@@ -24,5 +24,8 @@
       "duration": "7 Monate, 02/2018 - 08/2018",
       "technics": "Spring Boot, Spring Data, Java 8, REST, SOAP, JSON, MockMVC, WireMock"
     }
+  ],
+  "users": [
+
   ]
 }
