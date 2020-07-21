@@ -1,0 +1,29 @@
+<form [formGroup]="authForm" (ngSubmit)="onSubmit()">
+  <div class="col-md-3 offset-md-3">
+    <div *ngIf="errorMessage" class="alert alert-danger">
+      <p>{{errorMessage}}</p>
+      <button class="btn btn-danger" type="button" (click)="onClearErrorMessage()">Close</button>
+    </div>
+    <div class="form-group">
+      <label class="col-form-label">E-Mail</label>
+      <input
+        type="text"
+        id="email"
+        formControlName="email"
+        class="form-control">
+    </div>
+    <div class="form-group">
+      <label class="col-form-label">Password</label>
+      <input
+        type="text"
+        id="password"
+        formControlName="password"
+        class="form-control">
+    </div>
+    <div class="form-control-range">
+      <button class="btn btn-primary mr-3" [disabled]="!authForm.valid" type="submit" (click)="onSignIn()">Sign in
+      </button>
+      <button class="btn btn-primary" [disabled]="!authForm.valid" type="submit" (click)="onSignUp()">Sign up</button>
+    </div>
+  </div>
+</form>
