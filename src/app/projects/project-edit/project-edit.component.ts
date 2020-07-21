@@ -5,8 +5,6 @@ import {ProjectService} from '../../shared/project.service';
 import {EditMode} from '../../shared/editmode.model';
 import {Project} from '../../shared/project.model';
 
-import {uuid} from 'uuidv4';
-
 @Component({
   selector: 'app-project-edit',
   templateUrl: './project-edit.component.html',
@@ -14,7 +12,7 @@ import {uuid} from 'uuidv4';
 })
 export class ProjectEditComponent implements OnInit, OnChanges {
   projectForm: FormGroup = new FormGroup({
-    'id': new FormControl(null, Validators.required),
+    'id': new FormControl(null),
     'task': new FormControl(null, Validators.required),
     'operations': new FormControl(null, Validators.required),
     'customer': new FormControl(null, Validators.required),
@@ -58,7 +56,7 @@ export class ProjectEditComponent implements OnInit, OnChanges {
     } else {
       if (this.editMode === EditMode.Add) {
         ProjectEditComponent.initForm(
-          this.projectForm, {id: uuid(), task: '', operations: '', customer: '', duration: '', technics: ''});
+          this.projectForm, {id: null, task: '', operations: '', customer: '', duration: '', technics: ''});
       }
     }
   }

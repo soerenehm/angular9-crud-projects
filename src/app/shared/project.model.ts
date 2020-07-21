@@ -1,5 +1,5 @@
 export interface Project {
-  id: string;
+  id: number;
   task: string;
   operations: string;
   customer: string;
