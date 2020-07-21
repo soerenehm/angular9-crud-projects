@@ -1,14 +1,11 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Subject} from 'rxjs';
-import {uuid} from 'uuidv4';
 
 import {Project} from './project.model';
 
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({providedIn: 'root'})
 export class ProjectService {
 
   private customers = ['Online-Versandhandel', 'Partnervermittlung', 'Telekommunikation'];
@@ -73,7 +70,6 @@ export class ProjectService {
   }
 
   addProject(project: Project): void {
-    project.id = uuid();
     const url = 'http://localhost/projects';
 
     this.httpClient.post<Project>(url, project, this.httpOptions).subscribe(
