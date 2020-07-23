@@ -2,9 +2,10 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {BehaviorSubject, Observable, Subject} from 'rxjs';
+import {map} from 'rxjs/operators';
 
-import {User} from './user.model';
 import {uuid} from 'uuidv4';
+import {User} from './user.model';
 
 @Injectable({providedIn: 'root'})
 export class AuthService {
@@ -86,5 +87,11 @@ export class AuthService {
 
   checkPassword(password: string, input: string) {
     return atob(password) === input;
+  }
+
+  isAuthorized() {
+    return this.userChangedLast.pipe(map((user) => {
+      return !!user;
+    }));
   }
 }
