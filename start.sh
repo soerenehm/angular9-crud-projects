@@ -17,7 +17,7 @@ EOF
 
 build() {
   if [[ -z $(docker ps -a | grep "${CONTAINER_NAME}") ]]; then
-    echo "Build docker container"
+    echo "Build docker image"
     docker build -t "$IMAGE_NAME" .
     echo "Create docker container"
     docker create -p 80:80 -v $(pwd)/db.json:/data/db.json --name "${CONTAINER_NAME}" "${IMAGE_NAME}"
